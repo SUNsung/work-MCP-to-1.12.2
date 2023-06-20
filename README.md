@@ -7,9 +7,9 @@ Thanks to Badbird5907 for providing the source version.
 >===================================================
 
 What to do:
-1 - download here: https://github.com/SUNsung/work-MCP-to-1.12.2/releases
-2 - Unpack
-3 - Run decompile in the unpacked folder
-4 - Profit!
+1) download here: https://github.com/SUNsung/work-MCP-to-1.12.2/releases
+2) Unpack
+3) Run decompile in the unpacked folder
+4) Profit!
 
 
