@@ -33,33 +33,8 @@ def copyLibrary(src, dst, name, library):
         
         shutil.copy2(os.path.join(src, library['filename']), dstPath)
     except:
-        print ("Error copying library %s"%name)
+        print ("Error copying library [%s] %s"%(name, library['filename']))
         sys.exit()
-
-#def extractLibrary(src, dst, library, version):
-#    try:
-#        srcPath = os.path.join(src, library['filename'])
-#        dstPath = os.path.join(dst, "versions", version, "%s-natives"%version)
-#    
-#        if not os.path.exists(dstPath):
-#            os.makedirs(dstPath)
-#        
-#        jarFile = zipfile.ZipFile(srcPath)
-#        fileList = jarFile.namelist()
-#    
-#        for _file in fileList:
-#            if not os.path.exists(os.path.join(dstPath, _file)):
-#                exclude = False;
-#                for entry in library['exclude']:
-#                    if entry in _file:
-#                        exclude = True
-#                if not exclude:
-#                    print("Extracting file %s from library %s"%(_file, library['name'].split(":")[1]))
-#                    jarFile.extract(_file, dstPath)
-#
-#    except:
-#        print ("Error extracting library %s"%library['name'])
-#        sys.exit()
 
 def extractNative(root, name, jarname, version):
     try:
@@ -88,7 +63,7 @@ def copyMinecraft(src, dst, version):
         shutil.copy2(jarSrcPath, dstPath)
         shutil.copy2(jsonSrcPath, dstPath)
     except Exception as e:
-        print ("\nError while copying Minecraft : %s"%e)
+        print ("\nError while copying Minecraft [%s] : %s"%( version, e))
         sys.exit()    
 
 #########################################################################################################
@@ -105,15 +80,8 @@ def copyClientAssets(commands, workDir = None):
     else:
         mcDir = workDir
 
-    #if not workDir:
-    #    mcDir = MinecraftDiscovery.getMinecraftPath()
-    #else:
-    #    mcDir = workDir
+    dstDir  = commands.dirjars
 
-    dstDir       = commands.dirjars
-
-    #versionDir   = os.path.join(mcDir, "versions")
-    #librariesDir = os.path.join(mcDir, "libraries")
 
     print("Looking in %s for mc installs..."%os.path.join(mcDir, "versions")),
     MinecraftDiscovery.checkMCDir(mcDir, currentVersion)

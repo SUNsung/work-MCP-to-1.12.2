@@ -126,11 +126,6 @@ def cmdsplit(args):
         args = args.replace('\\', '\\\\')
     return shlex.split(args)
 
-
-#def truncate(text, length):
-#    if len(text) > length:
-#        return text[:length] + '...'
-#    return text
 def truncate(text, length):
     return text
 
@@ -189,10 +184,13 @@ class Commands(object):
 
         if sys.platform.startswith('linux'):
             self.osname = 'linux'
+            print 'Start for Linux..'
         elif sys.platform.startswith('darwin'):
             self.osname = 'osx'
+            print 'Start for MacOS..'
         elif sys.platform.startswith('win'):
             self.osname = 'win'
+            print 'Start for Widows..'
         else:
             self.logger.error('OS not supported : %s', sys.platform)
             sys.exit(1)
@@ -532,21 +530,6 @@ class Commands(object):
 
         self.md5jarclt = config.get('JAR', 'MD5Client').lower()
         self.md5jarsrv = config.get('JAR', 'MD5Server').lower()
-
-        #if workdir == None:
-        #    mcDir = MinecraftDiscovery.getMinecraftPath()
-        #else:
-        #    mcDir = workdir
-        #osKeyword = MinecraftDiscovery.getNativesKeyword()
-        #
-        #if json == None:
-        #    self.jsonFile = MinecraftDiscovery.getJSONFilename(mcDir, self.versionClient)
-        #    if not os.path.exists(self.jsonFile):
-        #        return False
-        #    mcLibraries = MinecraftDiscovery.getLibraries(mcDir, self.jsonFile, osKeyword)
-        #else:
-        #    self.jsonFile = json
-        #    mcLibraries = MinecraftDiscovery.getLibraries(mcDir, self.jsonFile, osKeyword)            
 
         self.jsonFile = os.path.join(self.dirjars, "versions", self.versionClient, "%s.json"%self.versionClient)
         osKeyword = MinecraftDiscovery.getNativesKeyword()
@@ -1296,24 +1279,6 @@ class Commands(object):
             'new' : readLog(exclogdry[side])
         }
 
-        # Fix for interfaces. We check the original joined.exc for the missing tags in the translation table.
-        # We also ignore all the tags with bad behaviors (client/server asymetry)
-        #ignoreList = ['net/minecraft/server/MinecraftServer',
-        #              'net/minecraft/network/NetworkSystem',
-        #              'net/minecraft/creativetab/CreativeTabs']
-
-        #origtags = {}
-        #log = [l.strip() for l in open(excconf[side], 'r').readlines()]
-        #for line in log:
-        #    if '=CL' in line:
-        #        columns = line.split('=')
-        #        origtags[columns[1] + '_'] = columns[0]
-
-        #for tag, name in origtags.items():
-        #    if not tag in renames.keys() and name.split('$')[0] not in ignoreList:
-        #        renames[tag] = name
-        # -- End of fix --
-        
         # build map of access function changes
         def filter_matched(key, value):
             if not k in meta['old']['access']:
